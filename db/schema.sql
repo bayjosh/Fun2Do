@@ -18,8 +18,9 @@ CREATE TABLE groups
 (
     id INT AUTO_INCREMENT NOT NULL,
     group_name VARCHAR(50) NOT NULL,
+    group_code INT NOT NULL,
     user_id INT NOT NULL,
-    date_group_created DATE(DD-MM-YY),
+    date_group_created DATE,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) references users(id)
 );
@@ -35,7 +36,7 @@ CREATE TABLE user_groups
 CREATE TABLE activities
 (
     id INT AUTO_INCREMENT NOT NULL,
-    date_activity_created DATE(DD-MM-YY),
+    date_activity_created DATE,
     category VARCHAR(50) NOT NULL,
     activity_name VARCHAR(250) NOT NULL,
     activity_location VARCHAR(50),

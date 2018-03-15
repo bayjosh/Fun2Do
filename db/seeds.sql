@@ -20,7 +20,10 @@ INSERT INTO activities (category, activity_name, activity_location, activity_pri
 VALUES ("Sports", "Bulls Game", "United Center", "50", "They're playing the Lakers", 1, 3);
 
 INSERT INTO activities (category, activity_name, activity_location, activity_price, notes, group_id, user_id)
-VALUES ("TV", "West Wing marathon", "My apt", "0", "#PresidentBartlet", 2, 1);
+VALUES ("TV", "West Wing marathon", "My apt", "free99", "#PresidentBartlet", 2, 1);
+
+INSERT INTO activities (category, activity_name, activity_location, activity_date, activity_price, notes, group_id, user_id)
+VALUES ("Concerts", "See Kygo", "United Center","May 5th 2018 at 7:30pm", "$100 at least", "Guys we need to see kygo", 2, 2);
 
 
 
