@@ -10,7 +10,7 @@ CREATE TABLE users
     email VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    password_hash VARCHAR(50) NOT NULL,
+    user_password VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
 
