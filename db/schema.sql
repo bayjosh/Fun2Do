@@ -12,7 +12,7 @@ CREATE TABLE users
     last_name VARCHAR(50) NOT NULL,
     password_hash VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE groups
 (
@@ -21,7 +21,7 @@ CREATE TABLE groups
     user_id INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) references users(id)
-)
+);
 
 CREATE TABLE user_groups
 (
@@ -29,7 +29,7 @@ CREATE TABLE user_groups
     group_id int NOT NULL,
     FOREIGN KEY (user_id) references users(id),
 	FOREIGN KEY (group_id) references groups(id)
-)
+);
 
 CREATE TABLE activities
 (
@@ -44,7 +44,7 @@ CREATE TABLE activities
     user_id int NOT NULL,
     FOREIGN KEY (user_id) references users(id),
 	FOREIGN KEY (group_id) references groups(id)
-)
+);
 
 CREATE TABLE votes
 (
@@ -52,4 +52,4 @@ CREATE TABLE votes
     user_id int NOT NULL,
     FOREIGN KEY (user_id) references users(id),
 	FOREIGN KEY (group_id) references groups(id)
-)
+);
