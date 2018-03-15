@@ -5,7 +5,7 @@ USE fun_db;
 
 CREATE TABLE users
 (
-    id INT AUTO_INCREMEMNT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE users
 
 CREATE TABLE groups
 (
-    id INT AUTO_INCREMEMNT NOT NULL,
+    id INT AUTO_INCREMENT NOT NULL,
     group_name VARCHAR(50) NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (id)
@@ -33,7 +33,7 @@ CREATE TABLE user_groups
 
 CREATE TABLE activities
 (
-    id int AUTO_INCREMEMNT NOT NULL,
+    id int AUTO_INCREMENT NOT NULL,
     category VARCHAR(50) NOT NULL,
     activity_name VARCHAR(250) NOT NULL,
     activity_location VARCHAR(50) NOT NULL,
