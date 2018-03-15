@@ -44,6 +44,7 @@ CREATE TABLE activities
     user_id int NOT NULL,
     FOREIGN KEY (user_id) references users(id),
 	FOREIGN KEY (group_id) references groups(id)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE votes
