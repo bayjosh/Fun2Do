@@ -7,3 +7,11 @@ router.get('/', function(req,res) {
 });
 
 module.exports = router;
+
+function groupCodeGenerator(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+console.log(groupCodeGenerator(1000, 10000));
+
+
