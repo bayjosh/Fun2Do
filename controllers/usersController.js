@@ -85,7 +85,8 @@ router.post('/register', function (req, res) {
 console.log(response);
                                 req.session.logged_in = true;
 
-                                req.session.id = response.insertId; //only way to get id of an insert for the mysql npm package
+                                req.session.user_id = response.insertId; //only way to get id of an insert for the mysql npm package
+                                console.log(req.session.id);
 
                                 var query = "SELECT * FROM users WHERE id=?"
                                 connection.query(query, [req.session.id], function (err, response) {
