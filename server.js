@@ -49,11 +49,11 @@ app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
 var applicationController = require("./controllers/applicationController.js");
-// var usersController = require("./controllers/usersController.js");
+var usersController = require("./controllers/usersController.js");
 // var couponsController = require("./controllers/couponsController.js");
 
 app.use("/", applicationController);
-// app.use("/users", usersController);
+app.use("/users", usersController);
 // app.use("/coupons", couponsController);
 
 var port = process.env.PORT || 3005;

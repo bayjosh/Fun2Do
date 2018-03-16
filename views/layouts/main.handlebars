@@ -7,27 +7,17 @@
 	</head>
 	<body>
 		{{#if logged_in}}
-			{{#if admin}}
-				<a href="/activities">Create a New Activity</a>
-				<a href="/coupons/created">View Activites Created</a>
-			{{else}}
-				<a href="/coupons">All Coupons</a>
-				<a href="/coupons/purchased">My Purchases</a>
-			{{/if}}
-
 			<a href="/users/sign-out" id="sign-out">Sign Out ({{this.username}})</a>
 		{{else}}
 			<a href="/users/sign-in">Sign In</a>
 			<a href="/users/new">Register</a>
 		{{/if}}
 
-		
-
 		<p class="clear"><strong>logged_in:</strong> {{logged_in}} |
-		<strong>user_email:</strong> {{user_email}} |
+		<strong>user_email:</strong> {{email}} |
 		<strong>user_id:</strong> {{user_id}} |
 		<strong></strong> {{company}} |
-		<strong>Hey {{username}}</strong></p>
+		<strong>Hey {{first_name}}</strong></p>
 		
 
 		{{{ body }}}
