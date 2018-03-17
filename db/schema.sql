@@ -18,7 +18,7 @@ CREATE TABLE groups
 (
     id INT AUTO_INCREMENT NOT NULL,
     group_name VARCHAR(50) NOT NULL,
-    group_code INT NOT NULL,
+    group_code INT,
     user_id INT NOT NULL,
     date_group_created DATE,
     PRIMARY KEY (id),

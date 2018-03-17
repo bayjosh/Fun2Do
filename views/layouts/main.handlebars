@@ -6,21 +6,22 @@
 		<title>Fun2Do</title>
 	</head>
 	<body>
-		{{#if logged_in}}
-			<a href="/users/sign-out" id="sign-out">Sign Out ({{this.username}})</a>
+		{{#if this.logged_in}}
+			<a href="/users/sign-out" id="sign-out">Sign ({{this.username}}) Out</a>
 		{{else}}
 			<a href="/users/sign-in">Sign In</a>
 			<a href="/users/new">Register</a>
 		{{/if}}
 
-		<p class="clear"><strong>logged_in:</strong> {{logged_in}} |
-		<strong>user_email:</strong> {{email}} |
-		<strong>user_id:</strong> {{user_id}} |
-		<strong></strong> {{company}} |
-		<strong>Hey {{first_name}}</strong></p>
+		{{!-- <p class="clear"><strong>logged_in:</strong> {{this.logged_in}} |
+		<strong>user_email:</strong> {{this.user_email}} |
+		<strong>user_id:</strong> {{this.user_id}} | --}}
+		<p><strong>So many activities, so little time!!!</strong></p>
 		
+        {{{ body }}}
+        
+    
 
-		{{{ body }}}
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="crossorigin="anonymous"></script>
 		<script src="/assets/js/ajax.js"></script>
 	</body>

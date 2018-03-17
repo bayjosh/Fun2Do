@@ -3,14 +3,22 @@ views/users/sign_in.handlebars -->
 <form class="create-update-form" action="/users/login" method="POST">
 
   <div class="form-group">
-    <label for="em">Email:</label>
-    <input type="text" id="em" name="email">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
   </div>
 
   <div class="form-group">
     <label for="pass">Password:</label>
-    <input type="password" id="pass" name="password">
+    <input type="password" id="pass" name="user_password">
   </div>
 
   <button type="submit">Sign In</button>
 </form>
+
+{{#if badUsername}}
+  <p><strong>That username is not registered. Try another one!</strong></p>
+  {{/if}}
+
+  {{#if badPassword}}
+  <p><strong>That is the wrong password for that username. Try again!</strong></p>
+  {{/if}}
