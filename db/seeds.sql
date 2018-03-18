@@ -8,6 +8,9 @@ INSERT INTO users (username, email, first_name, last_name, user_password)
 VALUES ("dan", "dan@dan.com", "Dan", "McCracken", "password");
 
 INSERT INTO groups (group_name, user_id)
+VALUES ("Pham", 2);
+
+INSERT INTO groups (group_name, user_id)
 VALUES ("My Best Friends", 2);
 
 INSERT INTO groups (group_name, user_id)

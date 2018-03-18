@@ -2,6 +2,30 @@
 
 <button>Create New Group!</button>
 
+<br><br>
+
+<form class="joinGroup-form" action="" method="POST">
+
+  <div class="form-group">
+    <label for="groupCode">Group Code:</label>
+    <input type="text" id="groupCode" name="groupCode">
+  </div>
+
+  <button type="submit">Join Group!</button>
+</form>
+
+{{#if noGroups}}
+     <p>
+         Hey {{first_name}}, you don't belong to any groups yet! Either click on the "Create New Group" button above, or ask a friend to give you their group code and enter it in the "Group Code" box to join their group!
+    </p>
+
+{{else}}
     <p>
          Hey {{first_name}}, below is a list of the groups you are a part of:
     </p>
+
+{{/if}}
+
+{{#each myGroups}}
+	{{this}} <br>
+{{/each}}
