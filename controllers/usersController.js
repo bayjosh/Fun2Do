@@ -222,10 +222,11 @@ router.post('/joinGroup', function (req, res) {
 
 
 router.post('/addActivity', function(req, res){
-
-
-
     
+    var query = "INSERT INTO activities () VALUES (?, ?)";
+
+
+
 })
 
 
