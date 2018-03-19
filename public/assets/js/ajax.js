@@ -23,8 +23,11 @@ $('.addActivity').on('click', function(event){
     }
 
 	// one way
-		$.post("/users/addActivity", data, function(response){
-			console.log(response);
+		$.post("/users/addActivity", data, function(data, response){
+			console.log(groupid);
 			alert("the response from the server is: " + response + ". If 200 then that's good. If 500 then there was something wrong.");
 		});
+	
+		thisForm.trigger("reset");
 	});
+

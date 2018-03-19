@@ -5,17 +5,18 @@ var mysql = require('mysql')
 var connection = require('../config/connection.js')
 
 //this is the users_controller.js file
-router.get('/new', function (req, res) {
-    res.render('users/new');
+router.get('/register', function (req, res) {
+    res.render('users/register');
 });
 
-router.get('/sign-in', function (req, res) {
-    res.render('users/sign_in');
+router.get('/login', function (req, res) {
+    res.render('users/login');
 });
 
-router.get('/mygroups', function (req, res) {
-    res.render('users/mygroups')
-});
+// router.get('/mygroups', function (req, res) {
+//     res.render('users/mygroups')
+    
+// });
 
 router.get('/sign-out', function (req, res) {
     req.session.destroy(function (err) {
@@ -32,7 +33,7 @@ router.post('/login', function (req, res) {
 
     connection.query(query, [req.body.username], function (err, response) {
         if (response.length == 0) {
-            res.render('users/sign_in', {
+            res.render('users/login', {
                 badUsername: true,
             })
 
@@ -41,7 +42,7 @@ router.post('/login', function (req, res) {
 
             connection.query(query, [req.body.username, req.body.user_password], function (err, response) {
                 if (response.length == 0) {
-                    res.render('users/sign_in', {
+                    res.render('users/login', {
                         badPassword: true,
                     })
                 } else {
@@ -59,48 +60,51 @@ router.post('/login', function (req, res) {
                     req.session.last_name = response[0].last_name
                     req.session.username = response[0].username;
 
-                    var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
-                    var myGroupsArr = [];
+                    res.redirect('/users/mygroups');
 
-                    connection.query(query, [req.session.user_id], function (err, response) {
-                        for (var i = 0; i < response.length; i++) {
-                            myGroupsArr.push(response[i].group_name)
-                        }
-                        req.session.myGroups = myGroupsArr;
-                        if (response.length == 0) {
-                            res.render('users/mygroups', {
-                                noGroups: true,
-                                logged_in: req.session.logged_in,
-                                user_email: req.session.email,
-                                user_id: req.session.user_id,
-                                first_name: req.session.first_name,
-                                username: req.session.username
-                            })
-                        } else {
-                            res.render('users/mygroups', {
-                                myGroups: req.session.myGroups,
-                                logged_in: req.session.logged_in,
-                                user_email: req.session.email,
-                                user_id: req.session.user_id,
-                                first_name: req.session.first_name,
-                                username: req.session.username
-                            });
-
-                        }
-
-                    })
-
-
-
-                    // res.redirect('mygroups');
                 }
-                //     res.redirect('users/sign-in')
-                // }
-                // });
             });
         };
     });
 });
+router.get('/mygroups', function(req,res){
+    var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
+    var myGroupsArr = [];
+    connection.query(query, [req.session.user_id], function (err, response) {
+        for (var i = 0; i < response.length; i++) {
+            myGroupsArr.push(response[i])
+        }
+        req.session.myGroups = myGroupsArr;
+        if (response.length == 0) {
+            res.render('users/mygroups', {
+                noGroups: true,
+                logged_in: req.session.logged_in,
+                user_email: req.session.email,
+                user_id: req.session.user_id,
+                first_name: req.session.first_name,
+                username: req.session.username
+            })
+        } else {
+            res.render('users/mygroups', {
+                myGroups: req.session.myGroups,
+                logged_in: req.session.logged_in,
+                user_email: req.session.email,
+                user_id: req.session.user_id,
+                first_name: req.session.first_name,
+                username: req.session.username
+            });
+
+        }
+
+    })
+
+    // var query2 = "SELECT * FROM activities INNER JOIN activity_groups ON activities.id = activity_groups.activitiy_id AND activity_group.group_id = ?"
+    // activitiesArr = [];
+    // connection.query(query2, [])
+
+
+})
+
 router.post('/register', function (req, res) {
     // var query = "SELECT * FROM users WHERE email = ?"
 
@@ -133,37 +137,47 @@ router.post('/register', function (req, res) {
     connection.query(query, [req.body.username, req.body.email, req.body.first_name, req.body.last_name, req.body.user_password], function (err, response) {
 
         req.session.logged_in = true;
-
         req.session.user_id = response.insertId; //only way to get id of an insert for the mysql npm package
-
-        var query = "SELECT * FROM users WHERE id=?"
-        connection.query(query, [req.session.user_id], function (err, response) {
-            if (err) throw err;
-            req.session.logged_in = true;
-            req.session.user_id = response[0].id;
-            req.session.email = response[0].email;
-            req.session.first_name = response[0].first_name;
-            req.session.last_name = response[0].last_name
-            req.session.username = response[0].username;
-            res.render('users/mygroups', {
-                logged_in: req.session.logged_in,
-                user_email: req.session.email,
-                user_id: req.session.user_id,
-                first_name: req.session.first_name,
-                username: req.session.username
-            });
-        });
+     
     });
+    var query2 = "SELECT * FROM users WHERE username = ?";
+
+    connection.query(query2, [req.body.username], function (err, response) {
+
+        req.session.logged_in = true;
+        req.session.user_id = response[0].id;
+        req.session.email = response[0].email;
+        req.session.first_name = response[0].first_name;
+        req.session.last_name = response[0].last_name
+        req.session.username = response[0].username;
+
+        res.redirect('/users/mygroups');
+
+    });
+
 });
+
+// router.get('/mygroups', function(req,res){
+//     var query = "SELECT * FROM users WHERE id=?"
+//     connection.query(query, [req.session.user_id], function (err, response) {
+//         if (err) throw err;
+//         req.session.logged_in = true;
+//         req.session.user_id = response[0].id;
+//         req.session.email = response[0].email;
+//         req.session.first_name = response[0].first_name;
+//         req.session.last_name = response[0].last_name
+//         req.session.username = response[0].username;
+//         res.render('users/mygroups', {
+//             logged_in: req.session.logged_in,
+//             user_email: req.session.email,
+//             user_id: req.session.user_id,
+//             first_name: req.session.first_name,
+//             username: req.session.username
+//         });
+        
 //     });
 
-// }
-// });
-
-
-// };
-//     });
-// });
+// })
 
 router.post('/joinGroup', function (req, res) {
 
@@ -173,15 +187,16 @@ router.post('/joinGroup', function (req, res) {
 
         if (firstResponse.length === 0) {
 
-            res.render('users/mygroups', {
-                wrongCode: true,
-                noGroups: true,
-                logged_in: req.session.logged_in,
-                user_email: req.session.email,
-                user_id: req.session.user_id,
-                first_name: req.session.first_name,
-                username: req.session.username
-            })
+            // res.render('users/mygroups', {
+            //     wrongCode: true,
+            //     logged_in: req.session.logged_in,
+            //     user_email: req.session.email,
+            //     user_id: req.session.user_id,
+            //     first_name: req.session.first_name,
+            //     username: req.session.username
+            // })
+
+            res.redirect('/users/mygroups')
 
         } else {
 
@@ -196,24 +211,26 @@ router.post('/joinGroup', function (req, res) {
                 connection.query(query, [req.session.user_id], function (err, response) {
                     for (var i = 0; i < response.length; i++) {
                         myGroupsArr.push(response[i].group_name)
-                        myGroupsIdsArr.push(response[i].id)
+                        myGroupsIdsArr.push(response[i].group_id)
                     }
                     req.session.myGroups = myGroupsArr;
                     req.session.myGroupsIds =  myGroupsIdsArr;
 
-                    res.render('users/mygroups', {
-                        youJoined: true,
-                        noGroups: false,
-                        myGroupsIds: req.session.myGroupsIds,
-                        group_name: firstResponse[0].group_name,
-                        myGroups: req.session.myGroups,
-                        logged_in: req.session.logged_in,
-                        user_email: req.session.email,
-                        user_id: req.session.user_id,
-                        first_name: req.session.first_name,
-                        username: req.session.username
+                    res.redirect('/users/mygroups');
 
-                    })
+                    // res.render('users/mygroups', {
+                    //     youJoined: true,
+                    //     noGroups: false,
+                    //     myGroupsIds: req.session.myGroupsIds,
+                    //     group_name: firstResponse[0].group_name,
+                    //     myGroups: req.session.myGroups,
+                    //     logged_in: req.session.logged_in,
+                    //     user_email: req.session.email,
+                    //     user_id: req.session.user_id,
+                    //     first_name: req.session.first_name,
+                    //     username: req.session.username
+
+                    // })
 
                 })
 
