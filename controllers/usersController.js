@@ -248,6 +248,7 @@ console.log('hey')
     connection.query(query, [req.body.activity_name, req.body.category, req.body.activity_location, req.body.activity_price, req.body.activity_date, req.body.notes, req.session.user_id, req.body.group_id ], function (err, response) {
         if (err) throw err;
         console.log(response)
+        res.redirect('/users/mygroups');
     })
 
 })

@@ -45,13 +45,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form data-group_id={{this.group_id}}>
-                    <div class="form-group">
+                <form data-group_id={{this.group_id}} >
+                    <div class="form-group activity_name">
                         <label for="activity_name">What do you want to do?</label>
                         <input type="text" class="form-control" id="activity_name" name="activity_name">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group category">
                         <label for="category">What type of activity will this be?</label>
                         <select class="form-control" id="category" name="category">
                             <option>Movies</option>
@@ -66,26 +66,26 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group activity_location">
                         <label for="activity_location">Where is it happening?</label>
                         <input type="text" class="form-control" id="activity_location" name="activity_location">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group activity_date">
                         <label for="activity_date">When is it happening</label>
                         <input type="text" class="form-control" id="activity_date" name="activity_date">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group activity_price">
                         <label for="activity_price">How much is this going to cost?</label>
                         <input type="text" class="form-control" id="activity_price" name="activity_price">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group notes">
                         <label for="notes">Anything else you would like to add?</label>
                         <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                     </div>
-                    <button type="submit" data-dismiss="modal" class="btn btn-primary" id="{{this.group_id}}">Add This Activity!</button>
+                    <button type="submit" data-dismiss="modal" class="btn btn-primary addActivity" id="{{this.group_id}}">Add This Activity!</button>
                 </form>
             </div>
             <div class="modal-footer">
