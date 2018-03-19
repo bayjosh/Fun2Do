@@ -22,17 +22,70 @@
     {{#each myGroups}}
     <li>
         <strong>{{this}}</strong>
-        <form action="/users/addActivity" method="POST">
-
-                {{!-- <div class="form-group">
-                    <label for="groupCode">Group Code:</label>
-                    <input type="text" id="groupCode" name="groupCode">
-                </div> --}}
-
-        <button type="submit" name="addActivity">Add an Activity!</button>
-        </form>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityModal" name="addActivity">Add an Activity!</button>
         <br>
     </li>
     {{/each}}
 
 </ul>
+
+
+<div class="modal fade" id="addActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add an Activity to {{this.id}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/users/addActivity" method="POST">
+                    <div class="form-group">
+                        <label for="activity_name">What do you want to do?</label>
+                        <input type="text" class="form-control" id="activity_name" name="activity_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">What type of activity will this be?</label>
+                        <select class="form-control" id="category" name="category">
+                            <option>Movies</option>
+                            <option>Concerts</option>
+                            <option>Sports</option>
+                            <option>Comedy</option>
+                            <option>Restaurants</option>
+                            <option>Podcasts</option>
+                            <option>Books</option>
+                            <option>Outdoor Activity</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity_location">Where is it happening?</label>
+                        <input type="text" class="form-control" id="activity_location" name="activity_location">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity_date">When is it happening</label>
+                        <input type="text" class="form-control" id="activity_date" name="activity_date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity_price">How much is this going to cost?</label>
+                        <input type="text" class="form-control" id="activity_price" name="activity_price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Anything else you would like to add?</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <button type="submit" data-dismiss="modal" class="btn btn-primary addActivity">Add This Activity!</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
