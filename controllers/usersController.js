@@ -191,16 +191,20 @@ router.post('/joinGroup', function (req, res) {
 
                 var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
                 var myGroupsArr = [];
+                var myGroupsIdsArr = []
 
                 connection.query(query, [req.session.user_id], function (err, response) {
                     for (var i = 0; i < response.length; i++) {
                         myGroupsArr.push(response[i].group_name)
+                        myGroupsIdsArr.push(response[i].id)
                     }
                     req.session.myGroups = myGroupsArr;
+                    req.session.myGroupsIds =  myGroupsIdsArr;
 
                     res.render('users/mygroups', {
                         youJoined: true,
                         noGroups: false,
+                        myGroupsIds: req.session.myGroupsIds,
                         group_name: firstResponse[0].group_name,
                         myGroups: req.session.myGroups,
                         logged_in: req.session.logged_in,
@@ -222,9 +226,9 @@ router.post('/joinGroup', function (req, res) {
 
 
 router.post('/addActivity', function(req, res){
-    var query = "INSERT INTO activities (activity_name, category, activity_location, activity_price, activity_date, notes) VALUES (?, ?, ?, ?, ?, ?)";
+    var query = "INSERT INTO activities (activity_name, category, activity_location, activity_price, activity_date, notes, user_id, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 console.log('hey')
-    connection.query(query, [req.body.activity_name, req.body.category, req.body.activity_location, req.body.activity_price, req.body.activity_date, req.body.notes], function (err, response) {
+    connection.query(query, [req.body.activity_name, req.body.category, req.body.activity_location, req.body.activity_price, req.body.activity_date, req.body.notes, req.session.user_id, req.body.group_id ], function (err, response) {
         if (err) throw err;
         console.log(response)
     })

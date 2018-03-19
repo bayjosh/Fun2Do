@@ -4,13 +4,13 @@ $('.addActivity').on('click', function(event){
     var thisForm = $(this).parent();
     
 
-	var activityid = thisForm.data('activityid');
-	var activityName = $(this).siblings().eq(0).val();
-	var category = $(this).siblings().eq(1).val();
-	var location = $(this).siblings().eq(2).val();
-	var date = $(this).siblings().eq(3).val();
-	var price = $(this).siblings().eq(4).val();
-	var notes = $(this).siblings().eq(5).val();
+	var groupid = parseInt(thisForm.data('group_id'));
+	var activityName = $('#activity_name').val().trim();
+	var category = $('#category').val();
+	var location = $('#activity_location').val().trim();
+	var date = $('#activity_date').val().trim();
+	var price = $('#activity_price').val().trim();
+	var notes = $('#notes').val();
 
 	var data = {
 		activity_name: activityName,
@@ -18,7 +18,8 @@ $('.addActivity').on('click', function(event){
 		activity_location: location,
 		activity_date: date,
 		activity_price: price,
-		notes: notes
+		notes: notes,
+		group_id: groupid
     }
 
 	// one way
