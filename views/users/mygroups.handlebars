@@ -2,20 +2,37 @@
 
 <button>Create New Group!</button>
 
-<br><br>
+<br>
+<br>
 
 <form class="joinGroup-form" action="/users/joinGroup" method="POST">
 
-  <div class="form-group">
-    <label for="groupCode">Group Code:</label>
-    <input type="text" id="groupCode" name="groupCode">
-  </div>
+    <div class="form-group">
+        <label for="groupCode">Group Code:</label>
+        <input type="text" id="groupCode" name="groupCode">
+    </div>
 
-  <button type="submit">Join Group!</button>
+    <button type="submit">Join Group!</button>
 </form>
 
 {{>groups/groups}}
 
-{{#each myGroups}}
-	{{this}} <br>
-{{/each}}
+
+<ul>
+    {{#each myGroups}}
+    <li>
+        <strong>{{this}}</strong>
+        <form action="/users/addActivity" method="POST">
+
+                {{!-- <div class="form-group">
+                    <label for="groupCode">Group Code:</label>
+                    <input type="text" id="groupCode" name="groupCode">
+                </div> --}}
+
+        <button type="submit" name="addActivity">Add an Activity!</button>
+        </form>
+        <br>
+    </li>
+    {{/each}}
+
+</ul>

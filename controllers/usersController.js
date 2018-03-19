@@ -221,4 +221,12 @@ router.post('/joinGroup', function (req, res) {
 })
 
 
+router.post('/addActivity', function(req, res){
+
+
+
+    
+})
+
+
 module.exports = router
