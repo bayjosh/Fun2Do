@@ -10,9 +10,10 @@ $('.addActivity').on('submit', function(event){
 	var data = {
 		coupon_id: couponid,
 		quantity: quant
-	}
+    }
+})
 
 	//one way
-		$.post("/coupons/users/create", data, function(response){
-			alert("the response from the server is: " + response + ". If 200 then that's good. If 500 then there was something wrong.");
-		});
+		// $.post("/coupons/users/create", data, function(response){
+		// 	alert("the response from the server is: " + response + ". If 200 then that's good. If 500 then there was something wrong.");
+		// });
