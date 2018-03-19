@@ -225,7 +225,8 @@ router.post('/addActivity', function(req, res){
     var query = "INSERT INTO activities (activity_name, category, activity_location, activity_price, activity_date, notes) VALUES (?, ?, ?, ?, ?, ?)";
 console.log('hey')
     connection.query(query, [req.body.activity_name, req.body.category, req.body.activity_location, req.body.activity_price, req.body.activity_date, req.body.notes], function (err, response) {
-        console.log('response')
+        if (err) throw err;
+        console.log(response)
     })
 
 })
