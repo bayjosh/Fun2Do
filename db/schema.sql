@@ -19,10 +19,10 @@ CREATE TABLE groups
     id INT AUTO_INCREMENT NOT NULL,
     group_name VARCHAR(50) NOT NULL,
     group_code INT,
-    user_id INT NOT NULL,
+    admin_id INT NOT NULL,
     date_group_created DATE,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) references users(id)
+    FOREIGN KEY (admin_id) references users(id)
 );
 
 CREATE TABLE user_groups
@@ -31,6 +31,7 @@ CREATE TABLE user_groups
     group_id INT NOT NULL,
     FOREIGN KEY (user_id) references users(id),
 	FOREIGN KEY (group_id) references groups(id)
+
 );
 
 CREATE TABLE activities

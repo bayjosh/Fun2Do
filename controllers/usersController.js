@@ -50,7 +50,7 @@ router.post('/login', function (req, res) {
                     // bcrypt.compare(req.body.user_password, response[0].user_password_hash, function (err, result) {
                     //     if (result == true) {
 
-                    
+
 
                     req.session.logged_in = true;
                     req.session.user_id = response[0].id;
@@ -59,11 +59,11 @@ router.post('/login', function (req, res) {
                     req.session.last_name = response[0].last_name
                     req.session.username = response[0].username;
 
-                    var query = "SELECT * FROM groups WHERE user_id = ?";
+                    var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
                     var myGroupsArr = [];
 
                     connection.query(query, [req.session.user_id], function (err, response) {
-                        for (var i = 0; i < response.length; i++){
+                        for (var i = 0; i < response.length; i++) {
                             myGroupsArr.push(response[i].group_name)
                         }
                         req.session.myGroups = myGroupsArr;
@@ -78,7 +78,6 @@ router.post('/login', function (req, res) {
                             })
                         } else {
                             res.render('users/mygroups', {
-                                noGroups: false,
                                 myGroups: req.session.myGroups,
                                 logged_in: req.session.logged_in,
                                 user_email: req.session.email,
@@ -86,13 +85,13 @@ router.post('/login', function (req, res) {
                                 first_name: req.session.first_name,
                                 username: req.session.username
                             });
-        
-                    }
 
-                })
+                        }
 
-                
-                    
+                    })
+
+
+
                     // res.redirect('mygroups');
                 }
                 //     res.redirect('users/sign-in')
@@ -165,6 +164,61 @@ router.post('/register', function (req, res) {
 // };
 //     });
 // });
+
+router.post('/joinGroup', function (req, res) {
+
+    var query = "SELECT * FROM groups WHERE group_code = ?";
+
+    connection.query(query, [req.body.groupCode], function (err, firstResponse) {
+
+        if (firstResponse.length === 0) {
+
+            res.render('users/mygroups', {
+                wrongCode: true,
+                noGroups: true,
+                logged_in: req.session.logged_in,
+                user_email: req.session.email,
+                user_id: req.session.user_id,
+                first_name: req.session.first_name,
+                username: req.session.username
+            })
+
+        } else {
+
+            var query = "INSERT INTO user_groups (user_id, group_id) VALUES (?, ?)";
+
+            connection.query(query, [req.session.user_id, firstResponse[0].id], function (err, response) {
+
+                var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
+                var myGroupsArr = [];
+
+                connection.query(query, [req.session.user_id], function (err, response) {
+                    for (var i = 0; i < response.length; i++) {
+                        myGroupsArr.push(response[i].group_name)
+                    }
+                    req.session.myGroups = myGroupsArr;
+
+                    res.render('users/mygroups', {
+                        youJoined: true,
+                        noGroups: false,
+                        group_name: firstResponse[0].group_name,
+                        myGroups: req.session.myGroups,
+                        logged_in: req.session.logged_in,
+                        user_email: req.session.email,
+                        user_id: req.session.user_id,
+                        first_name: req.session.first_name,
+                        username: req.session.username
+
+                    })
+
+                })
+
+            })
+
+        }
+
+    })
+})
 
 
 module.exports = router
