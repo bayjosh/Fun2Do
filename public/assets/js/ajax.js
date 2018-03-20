@@ -1,5 +1,5 @@
 $('.addActivity').on('click', function(event){
-	// event.preventDefault();
+	event.preventDefault();
 
     var thisForm = $(this).parent();
 
