@@ -15,7 +15,7 @@ router.get('/login', function (req, res) {
 
 // router.get('/mygroups', function (req, res) {
 //     res.render('users/mygroups')
-    
+
 // });
 
 router.get('/sign-out', function (req, res) {
@@ -67,13 +67,14 @@ router.post('/login', function (req, res) {
         };
     });
 });
-router.get('/mygroups', function(req,res){
+router.get('/mygroups', function (req, res) {
     var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
     var myGroupsArr = [];
     connection.query(query, [req.session.user_id], function (err, response) {
         for (var i = 0; i < response.length; i++) {
             myGroupsArr.push(response[i])
         }
+        // console.log(myGroupsArr);
         req.session.myGroups = myGroupsArr;
         if (response.length == 0) {
             res.render('users/mygroups', {
@@ -85,6 +86,17 @@ router.get('/mygroups', function(req,res){
                 username: req.session.username
             })
         } else {
+            // var query2 = "SELECT * FROM activities INNER JOIN activity_groups ON activities.id = activity_groups.activity_id AND activity_groups.group_id = ?"
+            // var activitiesArr = [];
+            // for (var i = 0; i < myGroupsArr.length +2; i++) {
+            //     connection.query(query2, [myGroupsArr[i].group_id], function (err, response) {
+            //         if (err) throw err;
+            //         activitiesArr.push(response)    
+            //     })
+            //     console.log(activitiesArr)
+                
+            // }
+            
             res.render('users/mygroups', {
                 myGroups: req.session.myGroups,
                 logged_in: req.session.logged_in,
@@ -93,14 +105,10 @@ router.get('/mygroups', function(req,res){
                 first_name: req.session.first_name,
                 username: req.session.username
             });
-
         }
-
     })
 
-    // var query2 = "SELECT * FROM activities INNER JOIN activity_groups ON activities.id = activity_groups.activitiy_id AND activity_group.group_id = ?"
-    // activitiesArr = [];
-    // connection.query(query2, [])
+
 
 
 })
@@ -138,7 +146,7 @@ router.post('/register', function (req, res) {
 
         req.session.logged_in = true;
         req.session.user_id = response.insertId; //only way to get id of an insert for the mysql npm package
-     
+
     });
     var query2 = "SELECT * FROM users WHERE username = ?";
 
@@ -174,7 +182,7 @@ router.post('/register', function (req, res) {
 //             first_name: req.session.first_name,
 //             username: req.session.username
 //         });
-        
+
 //     });
 
 // })
@@ -214,7 +222,7 @@ router.post('/joinGroup', function (req, res) {
                         myGroupsIdsArr.push(response[i].group_id)
                     }
                     req.session.myGroups = myGroupsArr;
-                    req.session.myGroupsIds =  myGroupsIdsArr;
+                    req.session.myGroupsIds = myGroupsIdsArr;
 
                     res.redirect('/users/mygroups');
 
@@ -242,12 +250,12 @@ router.post('/joinGroup', function (req, res) {
 })
 
 
-router.post('/addActivity', function(req, res){
+router.post('/addActivity', function (req, res) {
     var query = "INSERT INTO activities (activity_name, category, activity_location, activity_price, activity_date, notes, user_id, group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-console.log('hey')
-    connection.query(query, [req.body.activity_name, req.body.category, req.body.activity_location, req.body.activity_price, req.body.activity_date, req.body.notes, req.session.user_id, req.body.group_id ], function (err, response) {
+
+    connection.query(query, [req.body.activity_name, req.body.category, req.body.activity_location, req.body.activity_price, req.body.activity_date, req.body.notes, req.session.user_id, req.body.group_id], function (err, response) {
         if (err) throw err;
-        console.log(response)
+
         res.redirect('/users/mygroups');
     })
 
