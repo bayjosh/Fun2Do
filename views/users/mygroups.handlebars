@@ -15,45 +15,43 @@
     <button type="submit">Join Group!</button>
 </form>
 
+
 {{>groups/groups}}
 <br> 
 
 {{#each myGroups}}
-
 <div class="card">
     <div class="card-header">
-        <h5>{{this}}
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityModal" name="addActivity">Add an Activity!</button>
+        <h5>{{this.group_name}}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add{{this.group_name}}ActivityModal" name="addActivity">Add an Activity!</button>
         </h5>
     </div>
     <div class="card-body">
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-
+        {{this.group_name}}
     </div>
 </div>
 
 
 <br>
 
-{{/each}}
-
-<div class="modal fade" id="addActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="add{{this.group_name}}ActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add an Activity to {{this.group_id}}</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Add an Activity to {{this.group_name}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form data-group_id="1">
-                    <div class="form-group">
+                <form data-group_id={{this.group_id}} >
+                    <div class="form-group activity_name">
                         <label for="activity_name">What do you want to do?</label>
                         <input type="text" class="form-control" id="activity_name" name="activity_name">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group category">
                         <label for="category">What type of activity will this be?</label>
                         <select class="form-control" id="category" name="category">
                             <option>Movies</option>
@@ -68,26 +66,26 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group activity_location">
                         <label for="activity_location">Where is it happening?</label>
                         <input type="text" class="form-control" id="activity_location" name="activity_location">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group activity_date">
                         <label for="activity_date">When is it happening</label>
                         <input type="text" class="form-control" id="activity_date" name="activity_date">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group activity_price">
                         <label for="activity_price">How much is this going to cost?</label>
                         <input type="text" class="form-control" id="activity_price" name="activity_price">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group notes">
                         <label for="notes">Anything else you would like to add?</label>
                         <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
                     </div>
-                    <button type="submit" data-dismiss="modal" class="btn btn-primary addActivity">Add This Activity!</button>
+                    <button type="submit" data-dismiss="modal" class="btn btn-primary addActivity" id="{{this.group_id}}">Add This Activity!</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -96,3 +94,6 @@
         </div>
     </div>
 </div>
+
+{{/each}}
+

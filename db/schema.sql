@@ -52,6 +52,15 @@ CREATE TABLE activities
     PRIMARY KEY (id)
 );
 
+CREATE TABLE activity_groups
+(
+    activity_id INT NOT NULL,
+    group_id INT NOT NULL,
+    FOREIGN KEY (activity_id) references activities(id),
+	FOREIGN KEY (group_id) references groups(id)
+
+);
+
 CREATE TABLE votes
 (
     group_id INT NOT NULL,

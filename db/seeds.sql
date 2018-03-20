@@ -40,5 +40,24 @@ VALUES ("TV", "West Wing marathon", "My apt", "free99", "#PresidentBartlet", 2, 
 INSERT INTO activities (category, activity_name, activity_location, activity_date, activity_price, notes, group_id, user_id)
 VALUES ("Concerts", "See Kygo", "United Center","May 5th 2018 at 7:30pm", "$100 at least", "Guys we need to see kygo", 2, 2);
 
+INSERT INTO activities (category, activity_name, activity_location, activity_date, activity_price, notes, group_id, user_id)
+VALUES ("Movies", "See Peter Pan", "Millenium Park","summer", "free", "lets do it", 3, 3);
+
+
+INSERT INTO activity_groups (activity_id, group_id)
+VALUES (1, 1);
+
+INSERT INTO activity_groups (activity_id, group_id)
+VALUES (2, 1);
+
+INSERT INTO activity_groups (activity_id, group_id)
+VALUES (3, 2);
+
+INSERT INTO activity_groups (activity_id, group_id)
+VALUES (4, 2);
+
+INSERT INTO activity_groups (activity_id, group_id)
+VALUES (5, 3);
+
 
 
