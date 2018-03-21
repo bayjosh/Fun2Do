@@ -1,19 +1,28 @@
-<h1>My Groups</h1>
+<header class= "masthead">
 
-<button>Create New Group!</button>
+{{!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> Hey {{first_name}}, you don't belong to any groups yet! Either click on the "Create New Group" button above, or ask a friend to give you their group code and enter it in the "Group Code" box to join their group!
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> --}}
+
+<div class= "reg-center"><h1 class= "reg-block">My Groups</h1></div>
+
+<div class= "reg-center"><button class= "btn btn-outline btn-xl btn-trans">Create New Group!</button></div> 
 
 <br>
 <br>
 
-<form class="joinGroup-form" action="/users/joinGroup" method="POST">
+<div class= "reg-center"><form class="joinGroup-form" action="/users/joinGroup" method="POST">
 
     <div class="form-group">
-        <label for="groupCode">Group Code:</label>
-        <input type="text" id="groupCode" name="groupCode">
+        {{!-- <label for="groupCode">Group Code:</label> --}}
+        <input type="text" id="groupCode" placeholder="Group Code ie. 1000" name="groupCode">
     </div>
 
-    <button type="submit">Join Group!</button>
-</form>
+    <button type="submit" class= "btn btn-outline btn-xl btn-trans">Join Group!</button>
+</form></div>
 
 
 {{>groups/groups}}
@@ -96,4 +105,4 @@
 </div>
 
 {{/each}}
-
+</header>

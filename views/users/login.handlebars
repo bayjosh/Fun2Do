@@ -1,6 +1,8 @@
 <!-- this is the sign_in.handlebars file inside the users folder of the views folder
 views/users/sign_in.handlebars -->
-<form class="create-update-form" action="/users/login" method="POST">
+<header class= "masthead">
+	
+<form class="create-update-form login-form" action="/users/login" method="POST">
 
   <div class="form-group">
     <label for="username">Username:</label>
@@ -12,7 +14,7 @@ views/users/sign_in.handlebars -->
     <input type="password" class="form-control" id="pass" name="user_password">
   </div>
 
-  <button type="submit">Sign In</button>
+  <button type="submit" class= "btn btn-outline btn-xl btn-trans">Sign In</button>
 </form>
 
 {{#if badUsername}}
@@ -22,3 +24,4 @@ views/users/sign_in.handlebars -->
   {{#if badPassword}}
   <p><strong>That is the wrong password for that username. Try again!</strong></p>
   {{/if}}
+  </header>

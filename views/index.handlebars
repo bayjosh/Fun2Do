@@ -12,8 +12,8 @@
                 	{{#if this.logged_in}}
 	                <a href="/users/sign-out" id="sign-out">Sign ({{this.username}}) Out</a>
                     {{else}}
-                    <a href="/users/sign-in">Sign In</a>
-                    <a href="/users/new">Register</a>
+                    <a href="/users/login">Sign In</a>
+                    <a href="/users/register">Register</a>
                     {{/if}}
               {{!-- <a class="nav-link js-scroll-trigger" href="#download">Login</a>
             </li>
@@ -35,7 +35,7 @@
             <div class="header-content mx-auto">
               <h1 class="mb-5">Welcome! Let's Have Some Fun!</h1>
               <!-- "#download" -->
-              <a href="/users/sign-in" class="btn btn-outline btn-xl js-scroll-trigger">Sign In</a>
+              <a href="/users/login" class="btn btn-outline btn-xl js-scroll-trigger">Sign In</a>
             </div>
           </div>
           <div class="col-lg-5 my-auto">
@@ -138,7 +138,7 @@
       <div class="cta-content">
         <div class="container">
           <h2>Stop waiting.<br>Start having fun.</h2>
-          <a href="/users/new" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
+          <a href="/users/register" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
         </div>
       </div>
       <div class="overlay"></div>

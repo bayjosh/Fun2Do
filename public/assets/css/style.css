@@ -2,3 +2,26 @@
 .dansClass {
     height: 100% !important;
   }
+
+.login-form {
+    width: 70% !important;
+    margin: auto !important;
+    padding-top: 10%;
+}
+
+.registration-form {
+    width: 70% !important;
+    margin: auto !important;
+}
+
+.reg-center {
+    text-align: center;
+}
+
+.reg-block {
+    display: inline-block;
+}
+
+.btn-trans {
+    background-color: transparent;
+}

@@ -6,9 +6,12 @@
 {{/if}}
 
 {{#if noGroups}}
-     <p>
-         Hey {{first_name}}, you don't belong to any groups yet! Either click on the "Create New Group" button above, or ask a friend to give you their group code and enter it in the "Group Code" box to join their group!
-    </p>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> Hey {{first_name}}, you don't belong to any groups yet! Either click on the "Create New Group" button above, or ask a friend to give you their group code and enter it in the "Group Code" box to join their group!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 
 {{else}}
     {{#if youJoined}}
