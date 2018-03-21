@@ -1,5 +1,3 @@
-$('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').trigger('focus')
-  })
-
-  //hello
+$('#createGroupModal').on('shown.bs.modal', function () {
+  $('#new_group_name').trigger('focus')
+})

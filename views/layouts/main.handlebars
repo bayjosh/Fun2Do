@@ -29,7 +29,9 @@
 
 <body>
     {{#if this.logged_in}}
+    <div class="text-right">
     <a href="/users/sign-out" id="sign-out">Sign ({{this.username}}) Out</a>
+    </div>
     {{/if}} 
     
     {{{ body }}}

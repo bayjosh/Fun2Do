@@ -21,6 +21,7 @@ CREATE TABLE groups
     group_code INT,
     admin_id INT NOT NULL,
     date_group_created DATE,
+    group_description VARCHAR(250),
     PRIMARY KEY (id),
     FOREIGN KEY (admin_id) references users(id)
 );
@@ -45,23 +46,14 @@ CREATE TABLE activities
     activity_date VARCHAR(50),
     notes VARCHAR(250),
     complete boolean NOT NULL DEFAULT FALSE,
-    group_id INT,
+    group_id INT NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) references users(id),
 	FOREIGN KEY (group_id) references groups(id),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE activity_groups
-(
-    activity_id INT NOT NULL,
-    group_id INT NOT NULL,
-    FOREIGN KEY (activity_id) references activities(id),
-	FOREIGN KEY (group_id) references groups(id)
-
-);
-
-CREATE TABLE votes
+CREATE TABLE upvotes
 (
     group_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -70,3 +62,14 @@ CREATE TABLE votes
 	FOREIGN KEY (group_id) references groups(id),
     FOREIGN KEY (activity_id) references activities(id)
 );
+
+CREATE TABLE downvotes
+(
+    group_id INT NOT NULL,
+    user_id INT NOT NULL,
+    activity_id INT NOT NULL,
+    FOREIGN KEY (user_id) references users(id),
+	FOREIGN KEY (group_id) references groups(id),
+    FOREIGN KEY (activity_id) references activities(id)
+);
+
