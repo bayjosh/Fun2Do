@@ -1,0 +1,115 @@
+<a href="/users/mygroups">
+    Back to My Groups</a>
+
+<h1>{{groupName}}</h1>
+
+<br> {{#if noActivities}}
+
+<p>This group doesn't have any activities yet. Wanna be the first to add one? Click the button!</p>
+
+<br>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add{{this.group_name}}ActivityModal" name="addActivity">Add an Activity!</button>
+
+
+{{else}} {{#each activities}}
+
+<div class="card">
+    <div class="card-header">
+        <h4>
+            <strong>{{this.activity_name}}</strong>
+        </h4>
+
+        <div class="text-right">
+            <form action="/votes/upvote" method="POST">
+                <input name="activity_id" type="hidden" value="{{inc @index}}">
+                <input name="group_id" type="hidden" value="{{this.group_id}}">
+                <input class="btn btn-success" type="submit" value="UPVOTE">
+            </form>
+            <form action="/votes/downvote" method="POST">
+                <input name="activity_id" type="hidden" value="{{@index}}">
+                <input name="group_id" type="hidden" value="{{this.group_id}}">
+                <input class="btn btn-danger" type="submit" value="DOWNVOTE">
+            </form>
+
+            {{!-- <p>Number of upvotes: {{../this.upvotes}}</p> --}}
+
+        </div>
+    </div>
+    <div class="card-body">
+        <p>Category: {{this.category}}</p>
+        <p>Location: {{this.activity_location}}</p>
+        <p>Price: {{this.activity_price}}</p>
+        <p>Date: {{this.activity_date}}</p>
+        <p>Notes: {{this.notes}}</p>
+    </div>
+</div>
+
+<hr>
+<br> {{/each}}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add{{this.group_name}}ActivityModal" name="addActivity">Add an Activity!</button>
+
+
+{{/if}}
+
+<div class="modal fade" id="add{{group_name}}ActivityModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add an Activity to {{group_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form data-group_id={{group_id}}>
+                    <div class="form-group activity_name">
+                        <label for="activity_name">What do you want to do?</label>
+                        <input type="text" class="form-control" id="activity_name" name="activity_name">
+                    </div>
+
+                    <div class="form-group category">
+                        <label for="category">What type of activity will this be?</label>
+                        <select class="form-control" id="category" name="category">
+                            <option>Movies</option>
+                            <option>Concerts</option>
+                            <option>Sports</option>
+                            <option>Comedy</option>
+                            <option>Restaurants</option>
+                            <option>Podcasts</option>
+                            <option>Books</option>
+                            <option>Outdoor Activity</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group activity_location">
+                        <label for="activity_location">Where is it happening?</label>
+                        <input type="text" class="form-control" id="activity_location" name="activity_location">
+                    </div>
+
+                    <div class="form-group activity_date">
+                        <label for="activity_date">When is it happening</label>
+                        <input type="text" class="form-control" id="activity_date" name="activity_date">
+                    </div>
+
+                    <div class="form-group activity_price">
+                        <label for="activity_price">How much is this going to cost?</label>
+                        <input type="text" class="form-control" id="activity_price" name="activity_price">
+                    </div>
+
+                    <div class="form-group notes">
+                        <label for="notes">Anything else you would like to add?</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                    </div>
+                    <button type="submit" data-dismiss="modal" class="btn btn-primary addActivity" id="{{this.group_id}}">Add This Activity!</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

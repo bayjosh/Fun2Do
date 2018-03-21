@@ -35,6 +35,7 @@ var hbs = exphbs.create({
     helpers: {
         foo: function (a) { return 'FOO!' + a; },
         bar: function (b) { return 'BAR!' + b; },
+        inc: function (value) {return parseInt(value)+1},
         breaklines: function(text) {
             text = Handlebars.Utils.escapeExpression(text);
             text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
@@ -51,10 +52,12 @@ app.set("view engine", "handlebars");
 var applicationController = require("./controllers/applicationController.js");
 var usersController = require("./controllers/usersController.js");
 // var groupsController = require("./controllers/groupsController.js");
+var votesController = require("./controllers/votesController.js");
 
 app.use("/", applicationController);
 app.use("/users", usersController);
 // app.use("/groups", groupsController);
+app.use("/votes", votesController);
 
 var port = process.env.PORT || 3005;
 app.listen(port);

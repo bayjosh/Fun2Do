@@ -1,5 +1,11 @@
 // Set up MySQL connection.
 var mysql = require("mysql");
+var pool = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "fun_db"
+})
 var app = require('../server');
 
 console.log('--------------the environment we are using----------------');
@@ -28,4 +34,5 @@ connection.connect(function(err) {
 });
 
 // Export connection for our ORM to use.
-module.exports = connection;
+module.exports = connection
+module.exports = pool

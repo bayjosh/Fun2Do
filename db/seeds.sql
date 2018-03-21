@@ -44,20 +44,20 @@ INSERT INTO activities (category, activity_name, activity_location, activity_dat
 VALUES ("Movies", "See Peter Pan", "Millenium Park","summer", "free", "lets do it", 3, 3);
 
 
-INSERT INTO activity_groups (activity_id, group_id)
-VALUES (1, 1);
+-- INSERT INTO activity_groups (activity_id, group_id)
+-- VALUES (1, 1);
 
-INSERT INTO activity_groups (activity_id, group_id)
-VALUES (2, 1);
+-- INSERT INTO activity_groups (activity_id, group_id)
+-- VALUES (2, 1);
 
-INSERT INTO activity_groups (activity_id, group_id)
-VALUES (3, 2);
+-- INSERT INTO activity_groups (activity_id, group_id)
+-- VALUES (3, 2);
 
-INSERT INTO activity_groups (activity_id, group_id)
-VALUES (4, 2);
+-- INSERT INTO activity_groups (activity_id, group_id)
+-- VALUES (4, 2);
 
-INSERT INTO activity_groups (activity_id, group_id)
-VALUES (5, 3);
+-- INSERT INTO activity_groups (activity_id, group_id)
+-- VALUES (5, 3);
 
 
 

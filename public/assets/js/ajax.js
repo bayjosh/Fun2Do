@@ -1,8 +1,7 @@
 $('.addActivity').on('click', function(event){
-	event.preventDefault();
+	// event.preventDefault();
 
-    var thisForm = $(this).parent();
-
+	var thisForm = $(this).parent();
 	var groupid = parseInt(thisForm.data('group_id'));
 	var activityName = $(this).siblings('.activity_name').children('#activity_name').val().trim();
 	var category = $(this).siblings('.category').children('#category').val();
@@ -26,5 +25,28 @@ $('.addActivity').on('click', function(event){
 		});
 	
 		thisForm.trigger("reset");
-	});
+});
 
+$('.createGroup').on('click', function (event) {
+    event.preventDefault();
+
+    var thisForm = $(this).parent();
+
+	// var groupid = parseInt(thisForm.data('group_id'));
+    var newGroupName = $(this).siblings('.new_group_name').children('#new_group_name').val().trim();
+    var newGroupDescription = $(this).siblings('.new_group_description').children('#new_group_description').val().trim();
+    var groupCode = Math.floor(Math.random() * 9000) + 1000;
+
+    var data = {
+        group_name: newGroupName,
+        group_description: newGroupDescription,
+        group_code: groupCode
+        // group_id: groupid
+    }
+
+    // one way
+    $.post("/users/createGroup", data, function (data, response) {
+    });
+
+    thisForm.trigger("reset");
+});
