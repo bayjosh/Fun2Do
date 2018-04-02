@@ -58,9 +58,9 @@ app.get('/hey', function(req, res){
     res.send('hey there')
 });
 app.use("/", applicationController);
-// app.use("/users", usersController);
-// // app.use("/groups", groupsController);
-// app.use("/votes", votesController);
+app.use("/users", usersController);
+// app.use("/groups", groupsController);
+app.use("/votes", votesController);
 
 var port = process.env.PORT || 3005;
 app.listen(port);
