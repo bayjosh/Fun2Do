@@ -10,13 +10,13 @@ var methodOverride = require("method-override");
 	this is useful in the connection.js file
 */
 
-var app = module.exports = express(); 
+var app = module.exports = express();
 
 var cookieParser = require('cookie-parser');
 
 var session = require('express-session');
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 6*1000*1000*1000*1000*1000*1000 }}));
+app.use(session({ secret: 'app', cookie: { maxAge: 6 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 } }));
 app.use(cookieParser());
 
 // Serve static content for the app from the "public" directory in the application directory.
@@ -35,8 +35,8 @@ var hbs = exphbs.create({
     helpers: {
         foo: function (a) { return 'FOO!' + a; },
         bar: function (b) { return 'BAR!' + b; },
-        inc: function (value) {return parseInt(value)+1},
-        breaklines: function(text) {
+        inc: function (value) { return parseInt(value) + 1 },
+        breaklines: function (text) {
             text = Handlebars.Utils.escapeExpression(text);
             text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
             return new Handlebars.SafeString(text);
@@ -54,12 +54,13 @@ var usersController = require("./controllers/usersController.js");
 // var groupsController = require("./controllers/groupsController.js");
 var votesController = require("./controllers/votesController.js");
 
-app.get('/hey', function(req, res){
-    res.send('hey there')
-});
+// app.get('/hey', function(req, res){
+//     res.send('hey there')
+// });
+
 app.use("/", applicationController);
 app.use("/users", usersController);
-// app.use("/groups", groupsController);
+app.use("/groups", groupsController);
 app.use("/votes", votesController);
 
 var port = process.env.PORT || 3005;
