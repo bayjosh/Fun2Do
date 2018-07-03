@@ -24,6 +24,10 @@ connection.connect(function(err) {
   if (err) {
     console.error("error connecting: " + err.stack);
     return;
+    /* 
+      MB: Replace these two lines with:
+          throw new Error(err);
+    */
   }
   console.log("connected as id " + connection.threadId);
 });

@@ -20,6 +20,9 @@ router.post('/downvote', function(req,res) {
 
 		connection.query(query, [ req.session.user_id, req.body.activity_id, req.body.group_id ], function(err, response) {
             if (err) throw err
+            /*
+              MB: throw new Error(err);
+            */
 
 			res.redirect('/users/mygroups/' + req.body.group_id);
 		});
