@@ -71,9 +71,13 @@ router.post('/login', function (req, res) {
 router.get('/mygroups', function (req, res) {
     var query = "SELECT * FROM groups INNER JOIN user_groups ON groups.id = user_groups.group_id AND user_groups.user_id = ?";
     var myGroupsArr = [];
-    
+
     connection.query(query, [req.session.user_id], function (err, response) {
         if (err) throw err
+        /*
+          MB: Use throw new Error(err)
+        */
+
         for (var i = 0; i < response.length; i++){
             myGroupsArr.push(response[i])
         }
@@ -103,7 +107,10 @@ router.get('/mygroups', function (req, res) {
 })
 router.get('/mygroups/:groupid', function (req, res) {
     var groupid = req.params.groupid
-    var query = "SELECT * FROM activities INNER JOIN groups ON activities.group_id = groups.id AND activities.group_id = ?"   
+    /*
+      MB: Use throw new Error(err)
+    */
+    var query = "SELECT * FROM activities INNER JOIN groups ON activities.group_id = groups.id AND activities.group_id = ?"
     var activitiesArr = []
     connection.query(query, [groupid], function (err, response) {
         if (err) throw err
@@ -121,11 +128,34 @@ router.get('/mygroups/:groupid', function (req, res) {
                 first_name: req.session.first_name,
                 username: req.session.username
             })
+        /*
+          MB: Just to reiterate, you can clean this all up with ES6:
+
+              const {
+                groupid: group_id,
+                logged_in,
+                user_email,
+                first_name,
+                username
+              } = req.session;
+
+              const noActivities = true;
+
+              res.render('user/thisgroup', {
+                group_id,
+                noActivities,
+                user_email,
+                user_id,
+                first_name,
+                user_name,
+              });
+        */
+
         }else {
             var query2 = "SELECT * FROM activities a RIGHT JOIN (SELECT activity_id, count(*) AS vote_count FROM upvotes GROUP BY activity_id) AS votes ON a.id = votes.activity_id"
 
             var query3 = "SELECT * FROM activities a LEFT JOIN (SELECT activity_id, count(*) AS vote_count FROM downvotes GROUP BY activity_id) AS votes ON a.id = votes.activity_id AND av"
-            var voteArr = []    
+            var voteArr = []
             connection.query(query2, function(err, votesResponse){
                 console.log('this is it ' + votesResponse)
                 if (err) throw err
@@ -133,9 +163,9 @@ router.get('/mygroups/:groupid', function (req, res) {
                 voteArr.push(votesResponse[i].vote_count)
                 }
                 console.log(voteArr)
-                
-    
-            
+
+
+
             res.render('users/thisgroup', {
                 group_id: groupid,
                 // groupName: groupName,
@@ -149,18 +179,18 @@ router.get('/mygroups/:groupid', function (req, res) {
             })
             })
         }
-        
+
     })
         // console.log(groupid)
         // var groupName = response[0].group_name
 
-        
 
-       
 
-        
-        
-        
+
+
+
+
+
 
     })
 
@@ -176,7 +206,7 @@ router.post('/register', function (req, res) {
     //     if (response.length > 0) {
     //         res.redirect('/users/new');
     //         console.log('We already have an account with this email')
-    //     } 
+    //     }
 
     // else {
     //    var query = "SELECT * FROM users WHERE username = ?"
@@ -201,8 +231,8 @@ router.post('/register', function (req, res) {
 
         req.session.logged_in = true;
         req.session.user_id = response.insertId; //only way to get id of an insert for the mysql npm package
-        
-    
+
+
 
 
     var query2 = "SELECT * FROM users WHERE username = ?";
@@ -211,9 +241,15 @@ router.post('/register', function (req, res) {
         if (err) throw err
 
         console.log(response);
+        /*
+          MB: Instead of logging the response, use Node's internal error logging:
+              throw new Error(response)
+        */
 
         if (response.length === 0) {
-        
+          /*
+            MB: A good spot for a server message to convey nothing found
+          */
         }
 
 
@@ -224,10 +260,36 @@ router.post('/register', function (req, res) {
         req.session.last_name = response[0].last_name
         req.session.username = response[0].username;
 
-        
+        /*
+          MB: To make your life easy, capture the first index in a variable:
+              const res = response[0];
+
+              or collect them through destructuring:
+
+              const {
+                id,
+                email,
+                first_name,
+                last_name,
+                username,
+              } = response[0];
+
+              Then, can create a new object for sessions:
+
+              const sessionUpdate = Object.assign({ id, email, first_name, last_name, username }, req.session);
+
+              Then, reassign it:
+
+              req.session = sessionUpdate;
+
+              This of course can be played around with, but there are many ways to do these types of assignments a bit
+              cleaner or more programatic.
+        */
+
+
         res.redirect('/users/mygroups');
 
-    });    
+    });
     });
 
 });
@@ -330,8 +392,8 @@ router.post('/createGroup', function (req, res) {
                 if (err) return err
                     // connection.end();
             })
-        
-        
+
+
             connection.query(query2, function (err, response) {
                 if (err) return err;
                 newGroupId = response[response.length-1].id
@@ -342,12 +404,25 @@ router.post('/createGroup', function (req, res) {
                         // console.log(newGroupId + ' from query3');
                         // req.session.myGroups = [];
                         res.redirect('/users/mygroups');
-                       
-            
+
+
                     })
             })
-        
-         
+
+
 })
 
 module.exports = router
+
+
+/*
+  MB: A few things here:
+      1. We could write classes or functions and replace router definitions as such:
+          const RouteFunction = require('../routes/route-method');
+          router.post('/route-name', RouteFunction);
+
+          This would cut down on amount of lines of code on this file, and provide an area
+          of seperation for route code. The controllers can just call whichever functions they require.
+
+      2. What is the purpose of the console references? Are these for your own debugging?
+*/
